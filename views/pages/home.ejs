@@ -1,6 +1,41 @@
 <%- include("../shared/_header") %>
-    <div>
-        <h1>Welcome to the Nexus</h1>
-        <h2>COMP2068 Matthew Antonis 200373088</h2>
+
+<main role="main" class="container my-5">
+    <div class="text-center">
+        <h1 class="display-4">Welcome to the Nexus</h1>
+        <p class="lead">Your one-stop portal for [describe purpose when known].</p>
     </div>
+
+    <section class="my-5">
+        <h2>Lab Features</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <h3>[Lab 1]</h3>
+                <ul>
+                    <li>Added "Lab Features" section, with Bootstrap styling</li>
+                    <li>Added "Contact Information" section with Bootstrap styling</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3>[Lab 2]</h3>
+                <p>[Template]</p>
+            </div>
+            <div class="col-md-4">
+                <h3>[Lab 3]</h3>
+                <p>[Template]</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="my-5 text-center">
+        <h2>Contact Information</h2>
+        <p>Interested in contacting me, please use one of the various methods</p>
+        <ul class="list-unstyled mx-auto" style="max-width: 400px;">
+            <li>Email Address: matthew.antonis@gmail.com</li>
+            <li>Phone Number: 416-779-5923</li>
+            <li>Slack Profile: <a href="https://gccompstudies.slack.com/team/U05RBMAAG76">https://gccompstudies.slack.com/team/U05RBMAAG76</a></li>
+        </ul>
+    </section>    
+</main>
+
 <%- include("../shared/_footer") %>

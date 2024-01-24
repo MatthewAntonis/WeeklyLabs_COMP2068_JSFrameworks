@@ -12,11 +12,6 @@ app.use(express.urlencoded({extended: true }));
 
 app.use("/", PageRoutes); 
 
-/* app.get("/", (request, response) => {
-    response.status(200).send("Boorakacha")
-});
-*/
-
 app.use((error, _, response) => {
     if(typeof error === "string"){
         error = new Error(error);
