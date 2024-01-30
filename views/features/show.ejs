@@ -1,0 +1,17 @@
+<%- include("../shared/_header") %>
+
+<div class="container mt-5">
+    <h1>Feature Details</h1>
+    <hr class="my-5">
+    <a href="/features/<%= feature.id %>/edit">Edit feature</a>
+    <div class="card ca-card">
+        <div class="card-body">
+            <p class="card-text">
+                <%= feature.content %>
+            </p>
+        </div>
+    </div>
+    <a href="/features">Back to features</a>
+</div>
+
+<%- include("../shared/_footer") %>

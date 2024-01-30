@@ -1,0 +1,20 @@
+<% 
+    let action = "";
+    let content = "";
+
+    if (typeof feature !== "undefined") {
+        action = `/${feature.id}`;
+        content = feature.content;
+    }
+%>
+
+<form action="/features<%= action %>" method="post" class="mt-3">
+    <input type="hidden" name="_method" value="<%= typeof feature !== 'undefined' ? 'put' : 'post' %>">
+
+    <div class="mb-3">
+        <label for="content" class="form-label">Content:</label>
+        <input type="text" class="form-control" id="content" name="content" required value="<%= content %>">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

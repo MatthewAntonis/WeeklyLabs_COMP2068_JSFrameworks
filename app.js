@@ -1,6 +1,7 @@
 import express from "express";
 import PageRoutes from "./routes/pageRoutes.js";
 import CardRoutes from "./routes/CardRoutes.js";
+import FeaturesRoutes from "./routes/FeaturesRoutes.js"; 
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
@@ -34,6 +35,7 @@ app.use((req, _, next) => {
 
 app.use("/", PageRoutes); 
 app.use("/cards", CardRoutes);
+app.use("/features", FeaturesRoutes);
 
 app.use((error, _, res, __) => {
     if (typeof error === "string") {
