@@ -1,28 +1,50 @@
 import express from "express";
-import PageRoutes from "./routes/pageRoutes.js";
-import CardRoutes from "./routes/CardRoutes.js";
-import FeaturesRoutes from "./routes/FeaturesRoutes.js"; 
 import dotenv from "dotenv";
-import mongoose from "mongoose";
+import RoutesSetup from "./lib/RoutesSetup.js";
+import MongooseSetup from "./lib/MongooseSetup.js";
+import PassportSetup from "./lib/PassportSetup.js";
+import session from "express-session";
 
+// This loads our .env and adds the variables to the environment
 dotenv.config();
 
-//Connect to Mongo using Mongoose
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_DATABASE}.amaxzic.mongodb.net/?retryWrites=true&w=majority`)
-    .then(() => console.info("MongoDB Connected"))
-    .catch(error => console.error(error));
-    
-const  app = express();
+// This creates our application
+const app = express();
 
+// Setup sessions
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: (process.env.NODE_ENV === "production"),
+        sameSite: (process.env.NODE_ENV === "production" ? "strict" : "lax")
+    }
+}));
+
+// Setup Mongoose
+MongooseSetup();
+
+// Setup Passport
+PassportSetup(app);
+
+// This sets our view engine (HTML renderer)
 app.set("view engine", "ejs");
 
+// This sets the public assets folder
 app.use(express.static("public"));
+app.use(express.static("avatars"));
 
+// Middleware to handle JSON
 app.use(express.json());
-app.use(express.urlencoded({extended: true }));
 
+// Middleware for parsing url-encoded requests
+app.use(express.urlencoded({ extended: true }));
+
+// Method overriding to deal with unsupported HTTP methods in certain platforms
 app.use((req, _, next) => {
-    if (req.body && typeof req.body === 'object' && '_method' in req.body) {        
+    if (req.body && typeof req.body === "object" && "_method" in req.body) {
         const method = req.body._method;
 
         delete req.body._method;
@@ -33,20 +55,27 @@ app.use((req, _, next) => {
     next();
 });
 
-app.use("/", PageRoutes); 
-app.use("/cards", CardRoutes);
-app.use("/features", FeaturesRoutes);
+RoutesSetup(app);
 
+// Our error handler
 app.use((error, _, res, __) => {
+    // Converts string errors to proper errors
     if (typeof error === "string") {
         const error = new Error(error);
     }
 
+    // Adds a generic status
     if (!error.status) error.status = 404;
 
+    // Outputs our error and stack trace to our console
     console.error(error);
 
+    // Outputs the error to the user
     res.status(error.status).send(error.message);
 });
 
+/**
+ * We are exporting our application so we are able to use it in
+ * our tests
+ */
 export default app;
