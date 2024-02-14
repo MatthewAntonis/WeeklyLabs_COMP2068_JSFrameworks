@@ -1,23 +1,115 @@
-.standard-link {
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --text-color: #212529;
+    --link-color: #007bff;
+    --border-radius: 0.25rem;
+    --font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+}
+
+.standard-link { 
+    color: var(--link-color);
+}
+
+form {
+    max-width: 600px;
+    margin: auto;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+}
+
+label {
+    font-weight: bold;
+}
+
+.btn.btn-primary, .standard-link {
+    width: 100%;
+    padding: 15px 20px;
+    margin: 8px 0;
     border: none;
-    background-color: transparent;
-    color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity,1));
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    color: var(--background-color); 
+    background-color: var(--primary-color); 
+}
+
+.btn.btn-primary:hover, .standard-link:hover {
+    filter: brightness(50%);
+}
+
+.standard-link {
+    width: auto; 
+    padding: 5px 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+hr {
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none; 
+}
+
+a:hover, a:focus {
     text-decoration: underline;
-    display: inline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
 .ca-card {
-    width: 200px; /* Adjust width as needed */
-    height: 250px; /* Adjust height as needed */
-    margin: 10px;
-    font-size: 14px; /* Adjust font size as needed */
-    font-family: Arial, sans-serif; /* Cards Against Humanity uses Helvetica Neue, but Arial is a close alternative */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 .ca-card .card-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.4em;
-    font-weight: bold;
+    padding: 20px;
+    text-align: center; 
 }
