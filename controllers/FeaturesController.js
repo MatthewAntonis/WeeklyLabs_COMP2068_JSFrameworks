@@ -2,10 +2,19 @@ import Feature from '../models/Feature.js';
 
 export const getFeatures = async (req, res) => {
     try {
-        const features = await Feature.find();
+        const searchQuery = req.query.search;
+
+        let filter = {};
+        if (searchQuery) {
+            filter.content = { $regex: searchQuery, $options: 'i' };
+        }
+
+        const features = await Feature.find(filter);
+
         res.render('features/index', { 
-            features,
-            title: 'Features List' 
+            features, 
+            title: 'Features List',
+            searchQuery 
         });
     } catch (error) {
         res.status(500).render('error', { error });
@@ -43,7 +52,8 @@ export const showEditFeatureForm = async (req, res) => {
     try {
         const feature = await Feature.findById(req.params.id);
         if (!feature) return res.status(404).render('error', { message: 'Feature not found' });
-        res.render('features/edit', { feature, formType: 'update', title: 'Edit Feature' });
+
+        res.render('features/edit', { feature, formType: 'update', title: 'Edit Feature', searchQuery: '' });
     } catch (error) {
         res.status(500).render('error', { error });
     }
